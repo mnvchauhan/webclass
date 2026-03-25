@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Portfolio</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #ffffff;
+  --text: #111;
+  --primary: #4f46e5;
+}
+
+body.dark {
+  --bg: #0f172a;
+  --text: #e5e7eb;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  scroll-behavior: smooth;
+}
+
+/* Navbar */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: var(--bg);
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 40px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+}
+
+nav ul li {
+  margin-left: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+/* Hero */
+.hero {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #4f46e5, #9333ea);
+  color: white;
+}
+
+.hero h1 {
+  font-size: 3rem;
+}
+
+.hero button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  border: none;
+  background: white;
+  color: #4f46e5;
+  cursor: pointer;
+  border-radius: 25px;
+}
+
+/* Sections */
+section {
+  padding: 80px 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* Projects */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 20px;
+}
+
+.card {
+  padding: 20px;
+  border-radius: 12px;
+  background: #f3f4f6;
+  transition: 0.3s;
+}
+
+body.dark .card {
+  background: #1e293b;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+.card button {
+  margin-top: 10px;
+}
+
+/* Skills */
+.skill {
+  margin-bottom: 20px;
+}
+
+.bar {
+  height: 8px;
+  background: #ddd;
+  border-radius: 5px;
+}
+
+.bar span {
+  display: block;
+  height: 100%;
+  background: var(--primary);
+  width: 0;
+}
+
+/* Contact */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input, textarea {
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+}
+
+/* Responsive */
+@media(max-width:768px) {
+  nav ul {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background: var(--bg);
+    padding: 20px;
+  }
+
+  nav ul.active {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav>
+  <h3>Portfolio</h3>
+  <ul id="menu">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div>
+    <h1>Hi, I'm Manav</h1>
+    <p>Full Stack Developer</p>
+    <button onclick="scrollToSection('projects')">View Work</button>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <h2>About Me</h2>
+  <p>I am a developer skilled in building modern web applications using React, Django, and Node.js.</p>
+  <ul>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>JavaScript</li>
+    <li>Django</li>
+  </ul>
+</section>
+
+<!-- Projects -->
+<section id="projects">
+  <h2>Projects</h2>
+  <div class="projects">
+    <div class="card">
+      <h3>Project 1</h3>
+      <p>Portfolio Website</p>
+      <button>View</button>
+    </div>
+    <div class="card">
+      <h3>Project 2</h3>
+      <p>E-commerce Store</p>
+      <button>View</button>
+    </div>
+    <div class="card">
+      <h3>Project 3</h3>
+      <p>PDF Tool SaaS</p>
+      <button>View</button>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <h2>Skills</h2>
+
+  <div class="skill">
+    <p>HTML</p>
+    <div class="bar"><span data-width="90%"></span></div>
+  </div>
+
+  <div class="skill">
+    <p>CSS</p>
+    <div class="bar"><span data-width="85%"></span></div>
+  </div>
+
+  <div class="skill">
+    <p>JavaScript</p>
+    <div class="bar"><span data-width="80%"></span></div>
+  </div>
+
+  <div class="skill">
+    <p>Django</p>
+    <div class="bar"><span data-width="75%"></span></div>
+  </div>
+
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <h2>Contact</h2>
+  <form onsubmit="return validateForm()">
+    <input type="text" id="name" placeholder="Name">
+    <input type="email" id="email" placeholder="Email">
+    <textarea id="message" placeholder="Message"></textarea>
+    <button type="submit">Send</button>
+  </form>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>© 2026 Manav | All Rights Reserved</p>
+  <p>
+    <a href="#">Instagram</a> |
+    <a href="#">LinkedIn</a>
+  </p>
+  <button onclick="toggleTheme()">Toggle Theme</button>
+</footer>
+
+<script>
+// Hamburger menu
+function toggleMenu() {
+  document.getElementById("menu").classList.toggle("active");
+}
+
+// Smooth scroll
+function scrollToSection(id) {
+  document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+}
+
+// Form validation
+function validateForm() {
+  let name = document.getElementById("name").value;
+  let email = document.getElementById("email").value;
+  let message = document.getElementById("message").value;
+
+  if (name === "" || email === "" || message === "") {
+    alert("Please fill all fields");
+    return false;
+  }
+  return true;
+}
+
+// Dark mode toggle
+function toggleTheme() {
+  document.body.classList.toggle("dark");
+}
+
+// Scroll reveal + skill animation
+window.addEventListener("scroll", () => {
+  document.querySelectorAll(".bar span").forEach(bar => {
+    let rect = bar.getBoundingClientRect();
+    if (rect.top < window.innerHeight) {
+      bar.style.width = bar.getAttribute("data-width");
+    }
+  });
+});
+</script>
+
+</body>
+</html>
