@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           CSS VARIABLES (For Theming)
+           ========================================= */
+        :root {
+            /* Light Mode Colors */
+            --bg-color: #f9f9f9;
+            --text-color: #333333;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --card-bg: #ffffff;
+            --primary-color: #4f46e5;
+            --secondary-color: #818cf8;
+            --border-color: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode {
+            /* Dark Mode Colors */
+            --bg-color: #111827;
+            --text-color: #f3f4f6;
+            --nav-bg: rgba(17, 24, 39, 0.95);
+            --card-bg: #1f2937;
+            --primary-color: #6366f1;
+            --secondary-color: #818cf8;
+            --border-color: #374151;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+        }
+
+        /* =========================================
+           RESET & GLOBAL STYLES
+           ========================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth; /* Smooth scrolling for nav links */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        section {
+            padding: 100px 10%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h2.section-title {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        h2.section-title::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background: var(--primary-color);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: #fff;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* =========================================
+           NAVBAR
+           ========================================= */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 10%;
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            transition: background-color 0.3s;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav ul li a {
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .theme-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-color);
+            transition: 0.3s;
+        }
+
+        /* =========================================
+           HERO SECTION
+           ========================================= */
+        #hero {
+            background: linear-gradient(135deg, var(--bg-color), rgba(99, 102, 241, 0.1));
+            align-items: flex-start;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-content h1 span {
+            color: var(--primary-color);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            color: #6b7280;
+        }
+
+        body.dark-mode .hero-content p {
+            color: #9ca3af;
+        }
+
+        /* =========================================
+           ABOUT SECTION
+           ========================================= */
+        .about-content {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        /* =========================================
+           PROJECTS SECTION
+           ========================================= */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--border-color);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 200px;
+            background-color: #cbd5e1;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Placeholder images using Unsplash */
+        .img-1 { background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80'); }
+        .img-2 { background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80'); }
+        .img-3 { background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80'); }
+
+        .project-info {
+            padding: 20px;
+        }
+
+        .project-info h3 {
+            margin-bottom: 10px;
+        }
+
+        .project-info p {
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            color: #6b7280;
+        }
+
+        body.dark-mode .project-info p {
+            color: #9ca3af;
+        }
+
+        /* =========================================
+           SKILLS SECTION
+           ========================================= */
+        .skills-container {
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .skill-box {
+            margin-bottom: 25px;
+        }
+
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .skill-bar {
+            width: 100%;
+            height: 10px;
+            background-color: var(--border-color);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: 5px;
+            width: 0; /* Set via JS for animation */
+            transition: width 1.5s ease-in-out;
+        }
+
+        /* =========================================
+           CONTACT SECTION
+           ========================================= */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group input, 
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, 
+        .form-group textarea:focus {
+            border-color: var(--primary-color);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            height: 150px;
+        }
+
+        .form-message {
+            display: none;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .form-message.success { background-color: #d1fae5; color: #065f46; display: block; }
+        .form-message.error { background-color: #fee2e2; color: #991b1b; display: block; }
+
+        /* =========================================
+           FOOTER
+           ========================================= */
+        footer {
+            text-align: center;
+            padding: 40px 10%;
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .social-links {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-links a {
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* =========================================
+           ANIMATIONS (Scroll Reveal)
+           ========================================= */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================================
+           MEDIA QUERIES (Mobile Responsiveness)
+           ========================================= */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 5%;
+            }
+            section {
+                padding: 80px 5%;
+            }
+            .hamburger {
+                display: flex;
+                z-index: 1001;
+            }
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70vw;
+                height: 100vh;
+                background-color: var(--nav-bg);
+                flex-direction: column;
+                justify-content: center;
+                transition: right 0.4s ease;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            }
+            nav ul.nav-active {
+                right: 0;
+            }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">DevPortfolio.</div>
+        <nav>
+            <ul id="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><button class="theme-btn" id="theme-btn">🌙</button></li>
+            </ul>
+        </nav>
+        <div class="hamburger" id="hamburger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </header>
+
+    <section id="hero" class="reveal">
+        <div class="hero-content">
+            <h1>Hi, I'm <span>Alex Doe</span><br>Full Stack Developer</h1>
+            <p>I craft beautiful, responsive, and robust web applications. Turning complex problems into elegant, user-friendly solutions.</p>
+            <a href="#projects" class="btn">View My Work</a>
+        </div>
+    </section>
+
+    <section id="about" class="reveal">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Hello! I'm a passionate developer with a strong focus on creating clean, intuitive, and performant user experiences. I love bridging the gap between design and engineering.</p>
+                <p>With experience in both front-end and back-end technologies, I enjoy building projects from the ground up. When I'm not coding, you can find me exploring new tech trends, reading, or hiking.</p>
+                <a href="#contact" class="btn">Let's Connect</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="reveal">
+        <h2 class="section-title">My Projects</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="project-img img-1"></div>
+                <div class="project-info">
+                    <h3>E-Commerce Platform</h3>
+                    <p>A full-stack e-commerce solution built with Django and JavaScript. Features include user authentication, cart management, and Stripe payment integration.</p>
+                    <a href="#" class="btn">Live Demo</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img img-2"></div>
+                <div class="project-info">
+                    <h3>Analytics Dashboard</h3>
+                    <p>A responsive admin dashboard designed with pure HTML, CSS, and JS. Includes dark mode, chart.js data visualization, and interactive data tables.</p>
+                    <a href="#" class="btn">Live Demo</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img img-3"></div>
+                <div class="project-info">
+                    <h3>Weather App</h3>
+                    <p>A sleek web app that fetches real-time weather data from a REST API. Built utilizing modern JavaScript ES6+ fetch async/await methods.</p>
+                    <a href="#" class="btn">Live Demo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="reveal">
+        <h2 class="section-title">My Skills</h2>
+        <div class="skills-container">
+            <div class="skill-box">
+                <div class="skill-info">
+                    <span>HTML & CSS</span>
+                    <span>95%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress" data-width="95%"></div>
+                </div>
+            </div>
+            <div class="skill-box">
+                <div class="skill-info">
+                    <span>JavaScript (ES6+)</span>
+                    <span>85%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress" data-width="85%"></div>
+                </div>
+            </div>
+            <div class="skill-box">
+                <div class="skill-info">
+                    <span>Python / Django</span>
+                    <span>80%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress" data-width="80%"></div>
+                </div>
+            </div>
+            <div class="skill-box">
+                <div class="skill-info">
+                    <span>Git & Version Control</span>
+                    <span>90%</span>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress" data-width="90%"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="reveal">
+        <h2 class="section-title">Get In Touch</h2>
+        <form class="contact-form" id="contact-form">
+            <div id="form-msg" class="form-message"></div>
+            <div class="form-group">
+                <input type="text" id="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <textarea id="message" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn">Send Message</button>
+        </form>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="#">GitHub</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">Twitter</a>
+        </div>
+        <p>&copy; 2024 Alex Doe. Built from scratch with HTML, CSS, and JS.</p>
+    </footer>
+
+    <script>
+        // --- 1. Mobile Hamburger Menu ---
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+        const navItems = document.querySelectorAll('#nav-links li a');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-active');
+            // Hamburger animation
+            hamburger.classList.toggle('toggle');
+        });
+
+        // Close mobile menu when a link is clicked
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navLinks.classList.remove('nav-active');
+            });
+        });
+
+        // --- 2. Dark/Light Mode Toggle ---
+        const themeBtn = document.getElementById('theme-btn');
+        const body = document.body;
+
+        // Check local storage for theme preference
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+            themeBtn.textContent = '☀️';
+        }
+
+        themeBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                themeBtn.textContent = '☀️';
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeBtn.textContent = '🌙';
+            }
+        });
+
+        // --- 3. Scroll Reveal Animations & Skill Bars ---
+        const reveals = document.querySelectorAll('.reveal');
+        const skillProgresses = document.querySelectorAll('.skill-progress');
+
+        const revealOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    // Add active class for fade-in up
+                    entry.target.classList.add('active');
+                    
+                    // If the section contains skill bars, animate their widths
+                    if(entry.target.id === 'skills') {
+                        skillProgresses.forEach(progress => {
+                            const width = progress.getAttribute('data-width');
+                            progress.style.width = width;
+                        });
+                    }
+                    // Optional: stop observing once revealed
+                    // observer.unobserve(entry.target); 
+                }
+            });
+        }, revealOptions);
+
+        reveals.forEach(reveal => {
+            revealOnScroll.observe(reveal);
+        });
+
+        // Trigger once on load in case elements are already in view
+        window.dispatchEvent(new Event('scroll'));
+
+        // --- 4. Simple Form Validation ---
+        const contactForm = document.getElementById('contact-form');
+        const formMsg = document.getElementById('form-msg');
+
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            // Basic validation
+            if(name === '' || email === '' || message === '') {
+                formMsg.textContent = "Please fill in all fields.";
+                formMsg.className = "form-message error";
+                return;
+            }
+
+            // Simple email regex check
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if(!emailRegex.test(email)) {
+                formMsg.textContent = "Please enter a valid email address.";
+                formMsg.className = "form-message error";
+                return;
+            }
+
+            // Success simulation
+            formMsg.textContent = "Message sent successfully! I'll get back to you soon.";
+            formMsg.className = "form-message success";
+            
+            // Clear form
+            contactForm.reset();
+
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                formMsg.style.display = 'none';
+                formMsg.className = "form-message";
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
